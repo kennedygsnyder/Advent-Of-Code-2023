@@ -1,5 +1,4 @@
 sum = 0
-nums = ['0','1','2','3','4','5','6','7','8','9']
 words = {"one":'1',"two":'2',"three":'3',"four":'4',"five":'5',"six":'6',"seven":'7',"eight":'8',"nine":'9',"zero":'0'}
 
 with open('input.txt') as f:
@@ -8,7 +7,7 @@ with open('input.txt') as f:
     for line in lines:
         values = []
         for i in range(len(line)):
-            if line[i] in nums: 
+            if line[i].isnumeric(): 
                 values.append(line[i])
             for j in range(3,6):
                 if line[i:i+j] in words:
