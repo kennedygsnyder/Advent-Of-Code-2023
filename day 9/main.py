@@ -12,13 +12,13 @@ for line in lines:
     curr_array = []
     for i in range(len(array[-1])-1):
       curr_array.append(array[-1][i+1]-array[-1][i])
-    print(curr_array)
     array.append(curr_array)
 
   array[-1].append(0)
-  for i in range(len(array)-3,-1,-1):
+  for i in range(len(array)-2,-1,-1):
     array[i].append(array[i][-1]+array[i+1][-1])
 
   sum+= array[0][-1]
+  
 print(sum)
 
