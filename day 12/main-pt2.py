@@ -1,12 +1,15 @@
 import re
+from functools import cache
 
+@cache
 def eval_line(line, nums):
   line = line.strip('.')
   #print(line, nums)
   counts = 0
   groups = list(filter(None, re.split(r'[\.?]+', line)))
-  #print(groups)
   if len(nums) == 0:
+    return 0
+  if len(line) < (sum(nums) + len(nums)-1):
     return 0
   
   q_index = line.find('?')
@@ -24,7 +27,6 @@ def eval_line(line, nums):
       return 1
 
   groups = list(filter(None, re.split(r'[\.]+', line)))
-  #print(groups)
   if len(groups) > 0 and not '?' in groups[0]:
     if len(groups[0]) == nums[0]:
       counts += eval_line('.'.join(groups[1:]), nums[1:])
@@ -46,14 +48,14 @@ with open("input.txt") as f:
 
   for i in range(len(lines)):
     line = lines[i]
-    #print(f'{i}/{num_lines}')
+    print(f'{i}/{num_lines}')
     existing_info = line.split()[0]
+    existing_info = (existing_info + '?') * 4 + existing_info
     configuration = [int(x) for x in line.split()[1].split(',')]
-    #print(existing_info, configuration)
+    configuration = configuration * 5
     num_unknown = existing_info.count('?')
 
-    #print(existing_info, configuration)
-    num = eval_line(existing_info, configuration)
+    num = eval_line(existing_info, tuple(configuration))
     valid_options += num
 
 print(valid_options)
